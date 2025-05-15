@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>산재 보상 챗봇</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="header-logo-wrapper" style="display: flex; align-items: center; gap: 10px;">
+                <img src="{{ url_for('static', filename='images/chatbot_navi.png') }}" alt="logo" style="width: 25%; height: 25%;">
+                <span style="font-size: 1.5rem; font-weight: bold; color: rgb(4, 0, 255);">워크내비</span>
+            </div>
+        </div>
+                
+        <div class="chat-body" id="chatBody">
+            <!-- 기존 대화 내용 -->
+        </div>
+        
+        <div class="chat-input">
+            <form id="chatForm">
+                <div class="info-button-container">
+                    <button type="button" id="infoToggleButton">
+                        <img src="https://img.icons8.com/ios-glyphs/90/FFFFFF/question.png" alt="Info" class="icon-image">
+                    </button>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="messageInput" placeholder="질문을 입력해주세요 :)" autocomplete="off" onkeydown="handleKeyDown(event)">
+                </div>
+                <div class="button-container">
+                    <button type="submit">
+                        <img src="https://img.icons8.com/ios-glyphs/90/ffffff/paper-plane.png" alt="Send" class="icon-image">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

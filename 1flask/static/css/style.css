@@ -1,0 +1,339 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    height: 100vh;
+    overflow: hidden; /* 스크롤 제거 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-container {
+    width: 95%;
+    max-width: 800px;
+    height: 95%; /* 챗박스의 높이 설정, 필요에 따라 조정 가능 */
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 
+        0 0 10px 2px rgba(217, 217, 217, 0.8), /* 부드러운 외곽 그림자 */
+        8px 8px 16px rgba(180, 180, 180, 0.5), /* 오른쪽 아래 그림자 */
+        -8px -8px 16px rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    position: fixed; /* 화면 중앙에 고정 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-body {
+    padding: 15px;
+    flex: 1;
+    overflow-y: auto; /* 챗박스 내부 스크롤 허용 */
+    overflow-x: hidden;
+    opacity: 1;
+    height: auto;
+    transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+/* 숨길 때: 투명도와 높이를 줄여 부드럽게 숨김 */
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden; /* 숨김 상태에서 스크롤바 제거 */
+}
+
+.chat-body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
+}
+
+.chat-header {
+    padding: 10px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logo {
+    max-width: 150px; /* 로고의 크기를 적절히 조정 */
+    height: auto;
+    margin-left: 1px; /* 필요시 여백 조정 */
+    margin-right: 1px; /* 필요시 여백 조정 */
+}
+
+.chat-message {
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.chat-message p {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 73%;
+    word-wrap: break-word;
+    box-shadow: 
+        0 0 10px 2px rgba(210, 210, 210, 0.8), /* 부드러운 외곽 그림자 */
+        8px 8px 16px rgba(190, 190, 190, 0.5), /* 오른쪽 아래 그림자 */
+        -8px -8px 16px rgba(255, 255, 255, 0.6);
+}
+
+.received p {
+    background-color: #ecf0f1;
+    color: #000;
+    margin-right: auto;
+}
+
+.sent p {
+    background-color: #1abc9c;
+    margin-left: auto;
+    color: #ffffff;
+}
+
+.chatbot-avatar-large {
+    width: 150px;  /* 더 큰 크기 */
+    height: 150px;  /* 더 큰 크기 */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chatbot-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-input {
+    padding: 15px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    opacity: 1;
+    height: auto;
+    transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.chat-input form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.info-button-container {
+    margin-right: 10px; /* 안내 버튼과 입력 필드 사이 간격 */
+}
+
+.info-button-container button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background-color: #1abc9c;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 50%; /* 원형 버튼 */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 0 10px 2px rgba(210, 210, 210, 0.8),
+        8px 8px 16px rgba(190, 190, 190, 0.5),
+        -8px -8px 16px rgba(255, 255, 255, 0.6);
+}
+
+.info-button-container button:hover {
+    background-color: #16a085;
+}
+
+.chat-info {
+    max-height: 80vh; /* 최대 높이를 설정해 화면을 벗어나지 않도록 */
+    overflow-y: auto; /* 스크롤 허용 */
+    padding: 20px;
+    text-align: justify;
+    font-size: 14px;
+    color: #333;
+    transition: opacity 0.3s ease;
+}
+
+.chat-info::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.input-container {
+    flex: 1;
+    margin-right: 10px; /* input과 button 사이의 간격 */
+}
+
+.button-container {
+    display: flex;
+}
+
+/* 기본 스타일 - 부드러운 전환 효과를 위해 transition 추가 */
+.chat-input input {
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 
+        0 0 10px 2px rgba(210, 210, 210, 0.8),
+        8px 8px 16px rgba(190, 190, 190, 0.5),
+        -8px -8px 16px rgba(255, 255, 255, 0.6);
+}
+
+/* 비활성화된 입력 필드 스타일 */
+.chat-input input:disabled {
+    background-color: #f0f0f0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    opacity: 0.7; /* 흐려진 느낌 */
+    box-shadow: 
+        0 0 10px 2px rgba(210, 210, 210, 0.0),  /* box-shadow의 색상 투명도 조정 */
+        8px 8px 16px rgba(190, 190, 190, 0.0),
+        -8px -8px 16px rgba(255, 255, 255, 0.0);
+}
+
+/* 전송 버튼 기본 스타일 */
+.button-container button {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1abc9c;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* 비활성화된 버튼 스타일 */
+.button-container button:disabled {
+    background-color: #cccccc;
+    color: #ffffff;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.7; /* 흐려진 느낌 */
+}
+
+.chat-input input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ffffff00;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.chat-input button {
+    width: 40px; /* 버튼의 너비 */
+    height: 40px; /* 버튼의 높이 */
+    padding: 0; /* 내부 여백 제거 */
+    border: none;
+    background-color: #1abc9c;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 50%; /* 버튼을 원형으로 만들기 */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    box-shadow: 
+        0 0 10px 2px rgba(210, 210, 210, 0.8), /* 부드러운 외곽 그림자 */
+        8px 8px 16px rgba(190, 190, 190, 0.5), /* 오른쪽 아래 그림자 */
+        -8px -8px 16px rgba(255, 255, 255, 0.6);
+}
+
+.chat-input button:hover {
+    background-color: #16a085;
+}
+
+.icon-image {
+    width: 20px;
+    height: 20px;
+}
+
+.loading-dots {
+    display: inline-block;
+    width: auto;
+    height: 10px;
+    text-align: center;
+}
+
+.loading-dots span {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin: 2px;
+    background-color: #95a5a6;
+    border-radius: 50%;
+    animation: loadingDots 1.5s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes loadingDots {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+.startfunction-button {
+    display:inline-block;
+    width: 32.4%;
+    padding: 10px 0;
+    margin-top: 5px;
+    background-color: #ffffff;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 10px;
+    position: relative; /* 이미지와 텍스트를 쉽게 정렬하기 위해 상대 위치 지정 */
+}
+
+.startfunction-button img {
+    display: block;
+    margin: 0 auto 5px auto; /* 이미지가 버튼의 가운데 정렬되도록 설정, 텍스트와 간격 추가 */
+    width: 24px; /* 이미지 크기 조정, 필요에 따라 수정 가능 */
+    height: 24px;
+}
+
+.startfunction-button span {
+    display: block; /* 텍스트가 이미지 아래에 위치하도록 설정 */
+}
+
+.startfunction-button:hover {
+    background-color: #1abc9c;
+}
+
+.response-button {
+    display: block;
+    width: 100%;  /* 버튼이 말풍선의 너비에 맞게 조정됩니다. */
+    padding: 10px 0;  /* 상하 패딩을 조정하여 버튼 높이를 균등하게 합니다. */
+    margin-top: 10px;
+    background-color: #ffffff;
+    color: #000;
+    text-align: center;  /* 텍스트를 중앙에 배치합니다. */
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); */
+}
+
+.response-button:hover {
+    background-color: #1abc9c;
+}
