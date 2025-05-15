@@ -8,7 +8,7 @@ import os
 from sentence_transformers import SentenceTransformer
 
 current_dir = os.path.dirname(os.path.abspath(__file__))  # 현재파일이 있는 경로
-data_dir = "C:/Project/Chatbot/data/test" # 데이터디렉토리 경로
+data_dir = os.path.join(current_dir, "../../../data/test") # 데이터디렉토리 경로
 
 #"""
 train_file = os.path.join(data_dir, "train_data.xlsx")
